@@ -13,6 +13,7 @@ let x3 = 740;
 let y3 = 340;
 let button1Visible = true;
 let button2Visible = true;
+let button3Visible = true;
 let pass1 = false;
 let pass2 = false;
 //scene1
@@ -41,6 +42,8 @@ let x32=330;
 let startColor;
 let endColor;
 let lerpedColor;
+let scene1button = false;
+let detectbutton3=false;
 
 function setup() {
   let canvas=createCanvas(800, 500);
@@ -112,6 +115,14 @@ function draw() {
   stroke(139, 204, 0);
   fill(139, 204, 0);
   rect(0, 400, 800, 20); //road
+  
+  if(returnForest == true){
+    drawSingleFlower(710,215);
+    drawSingleFlower(305,220);
+    drawSingleBerry(390,50);
+    drawSingleBerry(30,50);
+    
+  }
 
   if (button1Visible) {
     fill(242, 180);
@@ -215,6 +226,19 @@ function mousePressed() {
   if(d2 < 50) {
    button2Visible = false;
   }
+  if(detectbutton3==true){
+  let d3 = dist(mouseX,mouseY,width/2,height/2-60);
+  if(d3<40){
+   button3Visible = false;
+    }
+  }
+  
+  if(scene1button ==true){
+  let d4 = dist(mouseX,mouseY,width/2,height/2-60);
+  if(d4<40){
+  returnForest = true;
+  }
+  }
 }
 
 function drawPlant1() {
@@ -292,6 +316,18 @@ function drawScene1() {
       circle(780, y1, 3);
     }
   }
+  detectbutton3=true;
+  if(button3Visible){
+  fill(255,180);
+  stroke(255);
+  rect(width/2-300,height/2-100,600,150,10);
+  fill(139, 204, 0)
+  rect(width/2-55,height/2-40,100,50)
+  fill(0)
+  text("Press keys to control the creature's movement",width/2-285,height/2-75);
+  text("And help her collect as many items as possible",width/2-285,height/2-55);
+  text("continue",width/2-47,height/2-10);
+  }else{
   fill(255, 245, 204);
   rect(0, 400, 800, 100);
   stroke(139, 204, 0);
@@ -336,8 +372,10 @@ function drawScene1() {
     storeY = berryy[berryy.length -1];
   }
   s = map((numFlowerCollected+numBerryCollected),0, 8, 0.8, 1.3);
-  console.log(dist(x,y,storeX,storeY));
+  
+  if(returnForest == false){
   if(dist(x,y,storeX,storeY)<60*s || storeY>height){
+  scene1button = true;
   fill(255,180);
   rect(width/2-300,height/2-100,600,150,10);
   fill(139, 204, 0)
@@ -345,9 +383,14 @@ function drawScene1() {
   fill(0)
   text("The forest bestows upon us countless treasures",width/2-285,height/2-75);
   text("it's time to return what we've taken.",width/2-285,height/2-55);
-  text("RETURN",width/2-32,height/2);
-  }
+  text("RETURN",width/2-32,height/2-10);
+   }
+ }else{
+  fill(0);
+  text("Press 'm' to return to the main interface",width/2-200,450);
+}
   pass1=true;
+}
 }
 
 function drawScene2() {
@@ -442,7 +485,7 @@ function drawScene2() {
 }
 
 function drawScene3(){
-  fill(255,180);
+  fill(255,220);
   rect(width / 2 - 320, height / 2 - 220, 640, 350, 10);
   fill(0);
   stroke(0,200);
@@ -459,8 +502,8 @@ function drawScene3(){
   x=600;
   y=180;
   drawCreature();
-  translate(x+35,y+5);
-  scale(0.5);
+  translate(x+40,y+13);
+  scale(0.8);
   drawSingleFlower(0,0);
   pop();
 }
@@ -687,3 +730,4 @@ function drawCircleTrail() {
     circle(i+105,370,5);
   }
 }
+    

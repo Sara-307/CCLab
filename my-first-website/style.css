@@ -1,4 +1,3 @@
-/* CCLab CSS template project A */
 body {
     background-color: black;
     color: aliceblue;
@@ -9,7 +8,9 @@ body {
 /* title */
 #title-wrapper {
     text-align: center;
+    margin-top: 120px;
 }
+
 .headline {
     font-size: 4em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -36,12 +37,13 @@ body {
 }
 
 
-.two-columns{
+.two-columns {
     display: flex;
 }
+
 .left {
     width: 50%;
-    padding: 0px 10px 0px 0px; 
+    padding: 0px 10px 0px 0px;
 }
 
 .right {
@@ -58,25 +60,35 @@ body {
 }
 
 /* Sketch placeholder */
-#p5-canvas-container img{
+#p5-canvas-container {
+    display: block;
+    /* position: block; */
     width: 800px;
+    top: 200px;
+   
 }
 
 
-
 /* home button */
-#home a {
+#home-button a {
     position: fixed;
-    right: 50px;
-    top: 10px;
+    right: 30px;
+    top: 30px;
     padding: 10px 20px;
     color: dimgrey;
     border: solid dimgrey 0.5px;
     font-size: 0.7em;
+    font-weight: bold;
     text-decoration: none;
 }
 
-#home a:hover {
+#home-button a:hover {
     background-color: coral;
     color: black;
 }
+
+/* #myContainer{
+    position:absolute;
+    left: 500px;
+    top: 500px;
+} */

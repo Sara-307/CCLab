@@ -43,8 +43,8 @@ let endColor;
 let lerpedColor;
 
 function setup() {
-  let cnv=createCanvas(800, 500);
-  cnv.parent("p5-canvas-container");
+  let canvas=createCanvas(800, 500);
+  canvas.parent("p5-canvas-container");
   vineX1 = x - 50;
   vineY1 = 150;
   vineX2 = x - 50; 

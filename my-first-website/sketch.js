@@ -44,6 +44,7 @@ let endColor;
 let lerpedColor;
 let scene1button = false;
 let detectbutton3=false;
+let circles = [];
 
 function setup() {
   let canvas=createCanvas(800, 500);
@@ -56,6 +57,21 @@ function setup() {
   endColor = color(153, 204, 0,220);
   textStyle(BOLD);
   textFont('Courier New', 15);
+  
+  for (let i = 0; i < 40; i++) {
+    let circleSize = random(10, 30); 
+    let circleColor = color(random(255), random(255), random(255)); 
+    let angle = random(TWO_PI); 
+    let circleSpeed = random(1, 4); 
+    circles.push({
+      x: width/2,
+      y: height/2, 
+      size: circleSize, 
+      color: circleColor, 
+      angle: angle, 
+      speed: circleSpeed
+    });
+  }
 }
 
 function draw() {
@@ -190,8 +206,20 @@ function drawCreature() {
   scale(s);
   fill(0, 153, 51);
   stroke(0, 153, 51);
-  triangle(- 40, - 41, - 50, - 65, - 30, - 53);
-  triangle(40, - 41, 50, - 65,  30, - 53);
+  if (stage == 2) {
+    for (let i = 0; i < 2; i++) {
+      let randomColor = color(random(255), random(255), random(255));
+      fill(randomColor);
+      stroke(randomColor);
+      triangle(-40, -41, -50, -65, -30, -53);
+      triangle(40, -41, 50, -65, 30, -53);
+    }
+  } else {
+    fill(0, 153, 51);
+    stroke(0, 153, 51);
+    triangle(-40, -41, -50, -65, -30, -53);
+    triangle(40, -41, 50, -65, 30, -53);
+  }
   if(stage<2){
   fill(242, 242, 242, 150);
   stroke(255, 80);
@@ -228,14 +256,14 @@ function mousePressed() {
   }
   if(detectbutton3==true){
   let d3 = dist(mouseX,mouseY,width/2,height/2-60);
-  if(d3<40){
+  if(d3<50){
    button3Visible = false;
     }
   }
   
   if(scene1button ==true){
   let d4 = dist(mouseX,mouseY,width/2,height/2-60);
-  if(d4<40){
+  if(d4<50){
   returnForest = true;
   }
   }
@@ -386,6 +414,17 @@ function drawScene1() {
   text("RETURN",width/2-32,height/2-10);
    }
  }else{
+   for (let i = 0; i < circles.length; i++) {
+    let circle = circles[i];
+     
+    let dx = cos(circle.angle) * circle.speed;
+    let dy = sin(circle.angle) * circle.speed;
+    circle.x += dx;
+    circle.y += dy;
+    fill(circle.color);
+    noStroke();
+    ellipse(circle.x, circle.y, circle.size);
+    }
   fill(0);
   text("Press 'm' to return to the main interface",width/2-200,450);
 }
@@ -711,14 +750,15 @@ function drawFootprint() {
 }
 
 function drawCircleTrail() {
-  fill(0, 153, 51);
-  stroke(0, 153, 51);
   beginShape();
-  for (let i = 0; i < circleTrail.length; i++) {
-    ellipse(circleTrail[i].x, circleTrail[i].y, 3, 3);
-    ellipse(circleTrail[i].x, 500-circleTrail[i].y, 3, 3);
-  }
-  endShape();
+    for (let i = 0; i < circleTrail.length; i++) {
+      let randomGreen = random(100, 255);
+      fill(0, randomGreen, 0);
+      stroke(0, randomGreen, 0);
+      ellipse(circleTrail[i].x, circleTrail[i].y, 5, 5);
+      ellipse(circleTrail[i].x, 500 - circleTrail[i].y, 5, 5);
+    }
+    endShape();
   for(let i =50;i<800;i+=210){
     fill(255,0,0);
     stroke(255,0,0);
